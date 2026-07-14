@@ -163,6 +163,8 @@ Open **http://localhost:3003**.
 
 ## 📱 Tablet tips
 
+- Wall-mount your tablet, leaving it plugged in. You can disable sleep while plugged in.
+- Open self-hosted website in browser, put in full screen. Feel free to zoom in/out based on your device resolution.
 - Leave the tab open overnight if you use **auto night dim** or midnight mission rollover.
 - Use **Admin → Backup** to export JSON before updates or big setting changes.
 
