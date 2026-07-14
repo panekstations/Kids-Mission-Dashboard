@@ -2,14 +2,14 @@
 // AdminDashboard — parent-only area with nav tabs
 // ============================================================
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useApp } from '../hooks/useApp';
 import { HistoryScreen } from './HistoryScreen';
 import { ReportsScreen } from './ReportsScreen';
-import { SettingsScreen } from './SettingsScreen';
+import { SettingsScreen, type SettingsScreenHandle } from './SettingsScreen';
 import { GoalsScreen, AchievementsScreen, AvatarScreen, DataScreen } from './ExtraScreens';
 import { getTheme } from '../data/themes';
-import { X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 
 type AdminTab = 'history' | 'reports' | 'goals' | 'achievements' | 'avatar' | 'settings' | 'data';
 
@@ -28,13 +28,17 @@ const TABS: Array<{ id: AdminTab; label: string; icon: string }> = [
 ];
 
 export function AdminDashboard({ onClose }: AdminDashboardProps) {
-  const [activeTab, setActiveTab] = useState<AdminTab>('history');
+  const [activeTab, setActiveTab] = useState<AdminTab>('settings');
+  const [settingsSaved, setSettingsSaved] = useState(false);
+  const settingsRef = useRef<SettingsScreenHandle>(null);
   const { state } = useApp();
   const theme = getTheme(state.settings.theme);
 
   return (
-    <div className="h-full flex flex-col"
-         style={{ background: theme.adminBackground }}>
+    <div
+      className="fixed inset-0 z-30 flex flex-col min-h-0"
+      style={{ background: theme.adminBackground }}
+    >
       {/* Admin header */}
       <div className="flex items-center justify-between px-4 py-3 bg-black/40 border-b border-white/10">
         <div className="flex items-center gap-2">
@@ -49,13 +53,29 @@ export function AdminDashboard({ onClose }: AdminDashboardProps) {
             <div className="text-white/40 text-xs">Protected Area</div>
           </div>
         </div>
-        <button
-          onClick={onClose}
-          className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-bold active:scale-95 transition-all"
-        >
-          <X className="w-4 h-4" />
-          Exit
-        </button>
+        <div className="flex items-center gap-2">
+          {activeTab === 'settings' && (
+            <button
+              type="button"
+              onClick={() => settingsRef.current?.save()}
+              className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-bold active:scale-95 transition-all ${
+                settingsSaved
+                  ? 'bg-green-600 text-white'
+                  : 'bg-green-500 hover:bg-green-400 text-white'
+              }`}
+            >
+              <Check className="w-4 h-4" />
+              {settingsSaved ? 'Saved' : 'Save'}
+            </button>
+          )}
+          <button
+            onClick={onClose}
+            className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-bold active:scale-95 transition-all"
+          >
+            <X className="w-4 h-4" />
+            Exit
+          </button>
+        </div>
       </div>
 
       {/* Tab bar — horizontal scroll */}
@@ -80,14 +100,16 @@ export function AdminDashboard({ onClose }: AdminDashboardProps) {
         ))}
       </div>
 
-      {/* Content */}
-      <div className="flex-1 overflow-hidden">
+      {/* Content — min-h-0 lets nested scroll areas work inside flex layout */}
+      <div className="flex-1 min-h-0 overflow-y-auto">
         {activeTab === 'history'      && <HistoryScreen />}
         {activeTab === 'reports'      && <ReportsScreen />}
         {activeTab === 'goals'        && <GoalsScreen />}
         {activeTab === 'achievements' && <AchievementsScreen />}
         {activeTab === 'avatar'       && <AvatarScreen />}
-        {activeTab === 'settings'     && <SettingsScreen />}
+        {activeTab === 'settings'     && (
+          <SettingsScreen ref={settingsRef} onSavedChange={setSettingsSaved} />
+        )}
         {activeTab === 'data'         && <DataScreen />}
       </div>
     </div>

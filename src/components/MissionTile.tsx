@@ -32,7 +32,7 @@ export function MissionTile({
     <div
       className={`
         relative rounded-3xl p-4 flex flex-col gap-3 overflow-hidden
-        transition-all duration-300 select-none
+        transition-[box-shadow,border-color,background-color] duration-300 select-none
         ${isComplete
           ? 'bg-green-500/30 border-2 border-green-400 shadow-lg shadow-green-500/20'
           : `${color} border-2 border-white/20 shadow-xl`

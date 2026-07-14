@@ -7,6 +7,7 @@ import { AppProvider, useApp } from './hooks/useApp';
 import { HomeScreen } from './components/HomeScreen';
 import { AdminDashboard } from './components/AdminDashboard';
 import { PinEntry } from './components/PinEntry';
+import { ThemeBackground } from './components/ThemeBackground';
 import { shouldNightDim } from './utils/nightDim';
 import { DEFAULT_TIMEZONE } from './utils/storage';
 
@@ -40,12 +41,10 @@ function AppInner() {
 
   return (
     <div
-      className="w-screen h-screen overflow-hidden font-nunito transition-[filter] duration-700"
-      style={{
-        fontFamily: 'Nunito, sans-serif',
-        filter: dimActive ? 'brightness(0.42)' : undefined,
-      }}
+      className="relative z-10 w-screen h-screen overflow-hidden font-nunito"
+      style={{ fontFamily: 'Nunito, sans-serif' }}
     >
+      <ThemeBackground themeId={state.settings.theme} />
       {view === 'home' && (
         <HomeScreen onOpenAdmin={() => setView('pinEntry')} />
       )}
@@ -60,6 +59,12 @@ function AppInner() {
       )}
       {view === 'admin' && (
         <AdminDashboard onClose={() => setView('home')} />
+      )}
+      {dimActive && (
+        <div
+          aria-hidden
+          className="pointer-events-none fixed inset-0 z-[100] bg-black/58 transition-opacity duration-700"
+        />
       )}
     </div>
   );

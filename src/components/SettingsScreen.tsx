@@ -2,7 +2,7 @@
 // SettingsScreen — parent configuration panel
 // ============================================================
 
-import React, { useState } from 'react';
+import React, { forwardRef, useCallback, useImperativeHandle, useState } from 'react';
 import { useApp } from '../hooks/useApp';
 import type { AppSettings, MathDifficulty, NightDimMode, ThemeId, Weekday } from '../types';
 import {
@@ -29,7 +29,16 @@ const NIGHT_DIM_MODES: Array<{ value: NightDimMode; label: string }> = [
   { value: 'auto', label: 'Auto' },
 ];
 
-export function SettingsScreen() {
+export interface SettingsScreenHandle {
+  save: () => void;
+}
+
+interface SettingsScreenProps {
+  onSavedChange?: (saved: boolean) => void;
+}
+
+export const SettingsScreen = forwardRef<SettingsScreenHandle, SettingsScreenProps>(
+  function SettingsScreen({ onSavedChange }, ref) {
   const { state, updateSettings } = useApp();
   const [s, setS] = useState<AppSettings>({
     ...state.settings,
@@ -41,9 +50,7 @@ export function SettingsScreen() {
     nightDimStart: state.settings.nightDimStart || '21:00',
     nightDimEnd: state.settings.nightDimEnd || '06:00',
   });
-  const [saved, setSaved] = useState(false);
-
-  const handleSave = () => {
+  const handleSave = useCallback(() => {
     const zip = s.weatherZip.replace(/\D/g, '').slice(0, 5);
     updateSettings({
       ...s,
@@ -55,9 +62,11 @@ export function SettingsScreen() {
       nightDimEnd: s.nightDimEnd || '06:00',
       weekdayHelperTasks: normalizeWeekdayHelperTasks(s.weekdayHelperTasks, s.helperTasks),
     });
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
-  };
+    onSavedChange?.(true);
+    setTimeout(() => onSavedChange?.(false), 2000);
+  }, [s, updateSettings, onSavedChange]);
+
+  useImperativeHandle(ref, () => ({ save: handleSave }), [handleSave]);
 
   const setWeekdayTask = (day: Weekday, task: string) => {
     setS(prev => ({
@@ -67,7 +76,7 @@ export function SettingsScreen() {
   };
 
   return (
-    <div className="h-full overflow-y-auto p-4">
+    <div className="p-4 pb-8">
       <h2 className="text-white font-black text-2xl mb-4" style={{ fontFamily: 'Fredoka One, cursive' }}>
         ⚙️ Settings
       </h2>
@@ -277,20 +286,10 @@ export function SettingsScreen() {
             <span className="text-white">Sound Effects</span>
           </label>
         </Section>
-
-        {/* Save button */}
-        <button
-          onClick={handleSave}
-          className={`w-full py-4 font-black text-xl rounded-2xl transition-all active:scale-95
-            ${saved ? 'bg-green-400 text-white' : 'bg-yellow-400 text-gray-900'}`}
-          style={{ fontFamily: 'Fredoka One, cursive' }}
-        >
-          {saved ? '✓ SAVED!' : 'SAVE SETTINGS'}
-        </button>
       </div>
     </div>
   );
-}
+});
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (

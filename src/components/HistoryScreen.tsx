@@ -32,7 +32,7 @@ export function HistoryScreen() {
   const monthName = viewDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
   return (
-    <div className="h-full overflow-y-auto p-4">
+    <div className="p-4 pb-8">
       <h2 className="text-white font-black text-2xl mb-1" style={{ fontFamily: 'Fredoka One, cursive' }}>
         📅 History
       </h2>
@@ -82,7 +82,7 @@ export function HistoryScreen() {
               key={date}
               onClick={() => !isFuture && setSelectedDate(date)}
               className={`
-                aspect-square rounded-lg flex flex-col items-center justify-center
+                h-10 rounded-lg flex flex-col items-center justify-center
                 ${bg} ${isToday ? 'ring-2 ring-white' : ''}
                 ${!isFuture ? 'hover:opacity-80 active:scale-95' : 'opacity-30 cursor-not-allowed'}
                 transition-all text-white

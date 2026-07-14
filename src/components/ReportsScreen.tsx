@@ -58,7 +58,7 @@ export function ReportsScreen() {
   const maxReading = Math.max(...last7.map(d => state.history[d]?.readingMinutes ?? 0), 1);
 
   return (
-    <div className="h-full overflow-y-auto p-4">
+    <div className="p-4 pb-8">
       <h2 className="text-white font-black text-2xl mb-4" style={{ fontFamily: 'Fredoka One, cursive' }}>
         📊 Reports
       </h2>

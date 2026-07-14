@@ -75,8 +75,7 @@ export function HomeScreen({ onOpenAdmin }: HomeScreenProps) {
   const readingProgress = Math.min(todayRecord.readingMinutes / readingGoal, 1);
 
   return (
-    <div className="h-full flex flex-col overflow-hidden"
-         style={{ background: theme.background }}>
+    <div className="relative h-full flex flex-col overflow-hidden">
 
       {/* TOP BAR */}
       <div className="flex items-center justify-between gap-2 px-4 py-2 bg-black/30 backdrop-blur border-b border-white/10">
@@ -317,8 +316,7 @@ export function HomeScreen({ onOpenAdmin }: HomeScreenProps) {
 
       {/* Badges Modal */}
       {showBadges && (
-        <div className="fixed inset-0 z-50 flex flex-col"
-             style={{ background: theme.background }}>
+        <div className="fixed inset-0 z-50 flex flex-col bg-black/40 backdrop-blur-sm">
           <div className="flex justify-end px-4 py-3 bg-black/30 border-b border-white/10">
             <button
               onClick={() => setShowBadges(false)}

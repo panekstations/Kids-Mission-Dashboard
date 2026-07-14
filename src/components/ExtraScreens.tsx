@@ -29,7 +29,7 @@ export function GoalsScreen() {
   };
 
   return (
-    <div className="h-full overflow-y-auto p-4">
+    <div className="p-4 pb-8">
       <h2 className="text-white font-black text-2xl mb-4" style={{ fontFamily: 'Fredoka One, cursive' }}>
         🎯 Savings Goals
       </h2>
@@ -167,7 +167,7 @@ export function AchievementsScreen({ title = '🏅 Achievements' }: { title?: st
   const locked = state.achievements.filter(a => !a.unlockedAt);
 
   return (
-    <div className="h-full overflow-y-auto p-4">
+    <div className="p-4 pb-8">
       <h2 className="text-white font-black text-2xl mb-2" style={{ fontFamily: 'Fredoka One, cursive' }}>
         {title}
       </h2>
@@ -228,7 +228,7 @@ export function AvatarScreen() {
   };
 
   return (
-    <div className="h-full overflow-y-auto p-4">
+    <div className="p-4 pb-8">
       <h2 className="text-white font-black text-2xl mb-4" style={{ fontFamily: 'Fredoka One, cursive' }}>
         🎭 My Avatar
       </h2>
@@ -305,7 +305,7 @@ export function DataScreen() {
   };
 
   return (
-    <div className="h-full overflow-y-auto p-4">
+    <div className="p-4 pb-8">
       <h2 className="text-white font-black text-2xl mb-4" style={{ fontFamily: 'Fredoka One, cursive' }}>
         💾 Data Backup
       </h2>

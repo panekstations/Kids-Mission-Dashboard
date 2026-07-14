@@ -1,18 +1,103 @@
-# Kids Mission Dashboard
+<div align="center">
 
-A kid-friendly daily mission board for families: morning routine, helper chores, reading, and math — with XP, streaks, allowance tracking, and parent admin tools.
+# 🚀 Kids Mission Dashboard
 
-Built for a home tablet or browser on your local network. **Not intended to be exposed to the public internet.**
+**Complete today's missions!**
 
-## Features
+A kid-friendly daily mission board for families — morning routine, helper chores, reading, and math.
 
-- **Child dashboard** — four daily missions, progress ring, weather, XP/allowance/streak
-- **Parent admin** — tap the title 5 times, enter PIN (default `1234`)
-- **Configurable** — child name, timezone, weather ZIP, themes, weekly helper tasks, math level (K–5), night dim schedule
-- **Persistent data** — saved to `data/dashboard.json` on the server
-- **Backup / restore** — Admin → Backup
+⭐ XP · 🔥 Streaks · 💰 Allowance · 🌤️ Weather · 🎨 Themes
 
-## Quick start (Docker — recommended)
+<br />
+
+<!-- Drop your demo GIF at docs/video.gif — it will show here automatically -->
+<img src="docs/video.gif" alt="Kids Mission Dashboard demo" width="720" />
+
+<br />
+
+*Add `docs/video.gif` to show an animated demo (see [Demo GIF](#-demo-gif) below).*
+
+<br />
+
+![License: MIT](https://img.shields.io/badge/License-MIT-f59e0b?style=for-the-badge)
+![Node 20+](https://img.shields.io/badge/Node-20%2B-6366f1?style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-ready-0ea5e9?style=for-the-badge)
+
+</div>
+
+---
+
+> ⚠️ **Home network only** — built for a family tablet mounted your wall on your Wi‑Fi. Not intended for the public internet.
+
+---
+
+## 🎯 Today's Missions
+
+| | Mission | What kids do | XP |
+|---|---------|--------------|-----|
+| 🌅 | **Morning Routine** | Make bed · get dressed · brush teeth | +5 |
+| 🤝 | **Help the Family** | One chore per weekday (parent-configured) | +5 |
+| 📚 | **Reading** | Hit the daily minute goal | +10 |
+| 🧮 | **Math Quiz** | Grade K–5 questions · pass to complete | +10–20 |
+
+Finish all four → allowance progress for the day 🏆
+
+---
+
+## ✨ Features
+
+<table>
+<tr>
+<td width="50%">
+
+**👶 Child dashboard**
+- 4 mission tiles + progress ring
+- 7-day streak strip
+- XP, level, and allowance bar
+- 5-day weather forecast
+- Night dim (auto schedule)
+
+</td>
+<td width="50%">
+
+**🔒 Parent admin**
+- Tap the title **5 times** → PIN
+- History, reports, goals, badges
+- Full settings & backup
+- Default PIN: `1234` *(change this!)*
+
+</td>
+</tr>
+</table>
+
+### ⚙️ Configurable in Settings
+
+- Child's name · birthday · timezone · weather ZIP
+- **6 themes:** 🚀 Default · 🦄 Unicorn · 🌲 Forest · 🌊 Ocean · 🦕 Dino · 🧚 Fairy Garden
+- Weekly helper-task schedule (Mon–Sun)
+- Math level: Kindergarten through 5th grade
+- Night dim: Off / On / Auto (default 9:00 PM – 6:00 AM)
+
+---
+
+## 🎬 Demo GIF
+
+Save your screen recording as:
+
+```
+docs/video.gif
+```
+
+That path is referenced at the top of this README. Once the file is in the repo and pushed, GitHub will display it automatically.
+
+**Tips for a good GIF:** tablet or browser fullscreen, show completing a mission, XP updating, and a quick peek at admin settings.
+
+---
+
+## ⚡ Quick start
+
+<details open>
+<summary><strong>🐳 Docker (recommended)</strong></summary>
 
 Requires [Docker Desktop](https://www.docker.com/products/docker-desktop/) (or Docker Engine + Compose).
 
@@ -22,11 +107,18 @@ cd kids-mission-dashboard
 docker compose up -d --build
 ```
 
-Open **http://localhost:4000** on the tablet or PC.
+Open **http://localhost:4000** on your tablet or PC.
 
-Data is stored in a Docker volume (`dashboard-data`). To reset: `docker compose down -v`.
+Data lives in a Docker volume (`dashboard-data`). To reset everything:
 
-## Install without Docker
+```bash
+docker compose down -v
+```
+
+</details>
+
+<details>
+<summary><strong>📦 Node.js (no Docker)</strong></summary>
 
 Requires **Node.js 20+**.
 
@@ -40,11 +132,14 @@ npm start
 
 Open **http://localhost:4000**.
 
-Progress is saved in `data/dashboard.json` (this file is gitignored — each family keeps their own).
+Progress is saved in `data/dashboard.json` on the server (gitignored — each family keeps their own).
 
-### Development
+</details>
 
-Runs the API on port **4000** and Vite dev server on **3003**:
+<details>
+<summary><strong>🛠️ Development</strong></summary>
+
+Runs the API on port **4000** and Vite on **3003**:
 
 ```bash
 npm install
@@ -53,39 +148,62 @@ npm run dev
 
 Open **http://localhost:3003**.
 
-## First-time setup
+</details>
 
-1. Open the dashboard on your tablet (bookmark or “Add to Home Screen” for fullscreen).
+---
+
+## 🏁 First-time setup
+
+1. Open the dashboard on your tablet — bookmark it or **Add to Home Screen** for fullscreen.
 2. Tap the **title 5 times** → enter parent PIN (**default: `1234`**).
-3. Go to **Settings** and change:
+3. Go to **Settings** and update:
    - Child's name
    - Parent PIN
    - Timezone & weather ZIP
    - Weekly helper tasks
    - Theme
-4. **Save Settings**.
+4. Tap **SAVE SETTINGS**.
 
-## Tablet tips
+---
 
-- Leave the tab open overnight if you use **auto night dim** or midnight mission rollover (the app checks every minute / 30 seconds).
-- Use **Admin → Backup** to export JSON before major changes or updates.
+## 📱 Tablet tips
 
-## Security notes
+- Leave the tab open overnight if you use **auto night dim** or midnight mission rollover.
+- Use **Admin → Backup** to export JSON before updates or big setting changes.
 
-- The parent PIN only locks the **UI**. The API has **no server-side authentication**.
-- Run on a **trusted home network** only (Wi‑Fi your family controls).
-- Do **not** port-forward this to the internet without adding proper auth and HTTPS.
-- `data/dashboard.json` contains your child's name, birthday, PIN, and mission history — **never commit it to GitHub**.
+---
 
-## Project structure
+## 🔐 Security notes
+
+| | |
+|---|---|
+| 🔓 | The parent PIN only locks the **UI** — the API has no server-side auth. |
+| 🏠 | Run on a **trusted home network** only. |
+| 🚫 | Do **not** port-forward to the internet without proper auth and HTTPS. |
+| 📄 | `data/dashboard.json` holds name, birthday, PIN, and history — **never commit it**. |
+
+---
+
+## 📂 Project structure
 
 | Path | Purpose |
 |------|---------|
 | `src/` | React frontend |
-| `server/index.js` | Express API + static files in production |
+| `server/index.js` | Express API + static files (production) |
 | `data/dashboard.json` | Live family data (local only, gitignored) |
+| `docs/video.gif` | README demo animation *(add yours)* |
 | `docker-compose.yml` | One-command install |
 
-## License
+---
+
+## 📜 License
 
 MIT — see [LICENSE](LICENSE).
+
+---
+
+<div align="center">
+
+**Made for families who want missions, not nagging.** 🎉
+
+</div>

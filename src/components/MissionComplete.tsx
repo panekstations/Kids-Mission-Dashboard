@@ -2,7 +2,7 @@
 // MissionComplete — celebration overlay when all 4 done
 // ============================================================
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useApp } from '../hooks/useApp';
 import { getTodaysJoke } from '../data/jokes';
 
@@ -15,6 +15,18 @@ export function MissionComplete({ soundEnabled: _, onDismiss }: MissionCompleteP
   const { todayRecord, state, today } = useApp();
   const [showAnswer, setShowAnswer] = useState(false);
   const joke = getTodaysJoke(today);
+
+  // Stable star positions — avoid layout flash on every parent re-render
+  const stars = useMemo(
+    () =>
+      Array.from({ length: 20 }, (_, i) => ({
+        id: i,
+        left: `${(i * 17 + 7) % 100}%`,
+        top: `${(i * 23 + 11) % 100}%`,
+        delay: `${(i % 5) * 0.4}s`,
+      })),
+    [],
+  );
 
   // Trigger confetti
   useEffect(() => {
@@ -46,14 +58,14 @@ export function MissionComplete({ soundEnabled: _, onDismiss }: MissionCompleteP
          style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)' }}>
       {/* Stars background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {stars.map(star => (
           <div
-            key={i}
+            key={star.id}
             className="absolute text-2xl animate-pulse"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
+              left: star.left,
+              top: star.top,
+              animationDelay: star.delay,
               opacity: 0.5,
             }}
           >
