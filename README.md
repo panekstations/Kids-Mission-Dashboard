@@ -11,11 +11,9 @@ A kid-friendly daily mission board for families — morning routine, helper chor
 <br />
 
 <!-- Drop your demo GIF at docs/video.gif — it will show here automatically -->
-<img src="docs/video.gif" alt="Kids Mission Dashboard demo" width="720" />
+<img src="docs/video1.gif" alt="Kids Mission Dashboard demo" width="1028" />
 
 <br />
-
-*Add `docs/video.gif` to show an animated demo (see [Demo GIF](#-demo-gif) below).*
 
 <br />
 
@@ -82,16 +80,13 @@ Finish all four → allowance progress for the day 🏆
 
 ## 🎬 Demo GIF
 
-Save your screen recording as:
-
-```
-docs/video1.gif
-```
-
-That path is referenced at the top of this README. Once the file is in the repo and pushed, GitHub will display it automatically.
-
-**Tips for a good GIF:** tablet or browser fullscreen, show completing a mission, XP updating, and a quick peek at admin settings.
-
+<div align="center"><b>
+   Reports and Badges
+<img src="docs/video2.gif" alt="Kids Mission Dashboard demo" width="1028" />
+</br></br>
+   Settings
+<img src="docs/video3.gif" alt="Kids Mission Dashboard demo" width="1028" />
+</b></div>
 ---
 
 ## ⚡ Quick start
