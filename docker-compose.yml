@@ -1,0 +1,14 @@
+services:
+  dashboard:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - dashboard-data:/app/data
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+
+volumes:
+  dashboard-data:
