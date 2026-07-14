@@ -85,7 +85,7 @@ Finish all four → allowance progress for the day 🏆
 Save your screen recording as:
 
 ```
-docs/video.gif
+docs/video1.gif
 ```
 
 That path is referenced at the top of this README. Once the file is in the repo and pushed, GitHub will display it automatically.
